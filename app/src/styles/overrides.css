@@ -121,21 +121,35 @@ img[src^="data:image/svg+xml"][data-lazy-srcset] { visibility: hidden; }
 }
 
 /* =============================================================================
-   Botao "FALAR COM UM ESPECIALISTA" da secao "Pronto para o proximo nivel"
-   id Elementor: elementor-element-0f86b0a — gradient verde com animacao textura
+   Fix: seletores .elementor-button gerados sem escopo pelo scraper aplicavam
+   opacity:0 e gradiente verde a TODOS os botões. Forçamos estado visível e
+   gradiente verde apenas nos 4 CTAs corretos.
    ============================================================================= */
+
+/* Garante visibilidade dos 4 botões CTA — anula opacity:0 do site.css gerado */
+.elementor-element-85efe38 .elementor-button,
+.elementor-element-67b3c1c .elementor-button,
+.elementor-element-b826c97 .elementor-button,
 .elementor-element-0f86b0a .elementor-button,
+.elementor-element-85efe38 a.elementor-button-link,
+.elementor-element-67b3c1c a.elementor-button-link,
+.elementor-element-b826c97 a.elementor-button-link,
 .elementor-element-0f86b0a a.elementor-button-link {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
   background-image: linear-gradient(45deg, #50E650, #14923A, #50E650, #14923A) !important;
   background-size: 400% 200% !important;
   background-color: transparent !important;
   border-radius: 100px !important;
-  animation: ssm-button-textura 3.4s cubic-bezier(0.2, 0.5, 0.9, 0.6) 2s infinite normal none running !important;
   color: #fff !important;
+  animation: ssm-button-textura 3.4s cubic-bezier(0.2, 0.5, 0.9, 0.6) 2s infinite normal none running !important;
 }
 
-.elementor-element-0f86b0a .elementor-button:hover,
-.elementor-element-0f86b0a a.elementor-button-link:hover {
+.elementor-element-85efe38 .elementor-button:hover,
+.elementor-element-67b3c1c .elementor-button:hover,
+.elementor-element-b826c97 .elementor-button:hover,
+.elementor-element-0f86b0a .elementor-button:hover {
   box-shadow: 0 0 40px 0 #50E650 !important;
 }
 
