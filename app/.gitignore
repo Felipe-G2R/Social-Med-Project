@@ -1,0 +1,8 @@
+node_modules
+dist
+.vite
+*.tsbuildinfo
+src/generated
+src/styles/site.css
+public/assets
+.tsbuild-node

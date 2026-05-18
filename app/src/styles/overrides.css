@@ -1,0 +1,146 @@
+/* Project overrides — load AFTER site.css to win specificity battles. */
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Prevent layout shift from late-loading images */
+img { max-width: 100%; height: auto; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide WP Rocket lazy placeholders that leak through */
+.rocket-lazyload-placeholder { display: none !important; }
+img[src^="data:image/svg+xml"][data-lazy-srcset] { visibility: hidden; }
+
+/* Elementor popups are inlined in markup but must stay hidden until opened. */
+.elementor-location-popup { display: none; }
+
+.app-popup-locked { overflow: hidden; }
+
+.app-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: none;
+  background: rgba(0, 0, 0, 0.72);
+  padding: 24px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  justify-content: center;
+}
+.app-popup-overlay--open { display: flex; }
+
+.app-popup-overlay .elementor-location-popup {
+  display: block;
+  position: relative;
+  width: min(720px, 100%);
+  max-width: 100%;
+  margin: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.app-popup-overlay .elementor-location-popup iframe {
+  width: 100%;
+  min-height: 560px;
+  border: 0;
+  display: block;
+}
+
+.app-popup-close {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.app-popup-close:hover { background: #fff; }
+
+/* =============================================================================
+   Carrossel de cards (Swiper.js inicializado em runtime pelo SiteBody.tsx)
+   Como usamos slidesPerView: 'auto', cada slide precisa de largura definida.
+   ============================================================================= */
+.elementor-widget-n-carousel .swiper {
+  cursor: grab;
+}
+.elementor-widget-n-carousel .swiper:active { cursor: grabbing; }
+
+.elementor-widget-n-carousel .swiper-slide {
+  width: clamp(220px, 26vw, 320px) !important;
+  height: auto !important;
+  flex-shrink: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-n-carousel .swiper-slide {
+    width: clamp(220px, 40vw, 300px) !important;
+  }
+}
+@media (max-width: 640px) {
+  .elementor-widget-n-carousel .swiper-slide {
+    width: clamp(220px, 75vw, 280px) !important;
+  }
+}
+
+/* Hide pagination dots / arrows - we use continuous autoplay, no nav needed */
+.elementor-widget-n-carousel .swiper-pagination,
+.elementor-widget-n-carousel .swiper-button-prev,
+.elementor-widget-n-carousel .swiper-button-next {
+  display: none !important;
+}
+
+/* Disable autoplay smoothly on user touch but keep visual continuity */
+.elementor-widget-n-carousel .swiper-wrapper {
+  transition-timing-function: linear !important;
+  -webkit-transition-timing-function: linear !important;
+}
+
+/* =============================================================================
+   Botao "FALAR COM UM ESPECIALISTA" da secao "Pronto para o proximo nivel"
+   id Elementor: elementor-element-0f86b0a — gradient verde com animacao textura
+   ============================================================================= */
+.elementor-element-0f86b0a .elementor-button,
+.elementor-element-0f86b0a a.elementor-button-link {
+  background-image: linear-gradient(45deg, #50E650, #14923A, #50E650, #14923A) !important;
+  background-size: 400% 200% !important;
+  background-color: transparent !important;
+  border-radius: 100px !important;
+  animation: ssm-button-textura 3.4s cubic-bezier(0.2, 0.5, 0.9, 0.6) 2s infinite normal none running !important;
+  color: #fff !important;
+}
+
+.elementor-element-0f86b0a .elementor-button:hover,
+.elementor-element-0f86b0a a.elementor-button-link:hover {
+  box-shadow: 0 0 40px 0 #50E650 !important;
+}
+
+@keyframes ssm-button-textura {
+  0%   { background-position: 0 0; }
+  100% { background-position: 100% 0; }
+}
+
