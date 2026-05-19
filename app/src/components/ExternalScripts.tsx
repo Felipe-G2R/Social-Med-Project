@@ -21,7 +21,24 @@ declare global {
   }
 }
 
+// HighLevel form_embed.js handles "modify-parent-url" via replaceState, which
+// updates the address bar but does NOT navigate. This listener intercepts the
+// same message and performs real navigation so conditional form redirects work.
+function handleHighLevelRedirect(event: MessageEvent) {
+  const data = event.data;
+  if (!Array.isArray(data)) return;
+  const action = data[0];
+  if (action === 'modify-parent-url' && typeof data[1] === 'string' && data[1]) {
+    window.location.href = data[1];
+  }
+}
+
 export default function ExternalScripts() {
+  useEffect(() => {
+    window.addEventListener('message', handleHighLevelRedirect);
+    return () => window.removeEventListener('message', handleHighLevelRedirect);
+  }, []);
+
   useEffect(() => {
     // Guard against React StrictMode double-invocation in dev and against
     // any future re-mount: inject the third-party scripts at most once
