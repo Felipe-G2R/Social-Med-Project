@@ -21,15 +21,21 @@ declare global {
   }
 }
 
+const REDIRECT_MQL = 'https://socialsellingmed.com.br/pfmql/';
+const REDIRECT_PF  = 'https://socialsellingmed.com.br/pf/';
+
 // HighLevel form_embed.js handles "modify-parent-url" via replaceState, which
 // updates the address bar but does NOT navigate. This listener intercepts the
-// same message and performs real navigation so conditional form redirects work.
+// same message, maps HighLevel's redirect URL to the correct hardcoded
+// destination (MQL vs. PF), and performs real navigation.
 function handleHighLevelRedirect(event: MessageEvent) {
   const data = event.data;
   if (!Array.isArray(data)) return;
   const action = data[0];
   if (action === 'modify-parent-url' && typeof data[1] === 'string' && data[1]) {
-    window.location.href = data[1];
+    const url = data[1].toLowerCase();
+    const isMql = url.includes('mql') || url.includes('qualif') || url.includes('pfmql');
+    window.location.href = isMql ? REDIRECT_MQL : REDIRECT_PF;
   }
 }
 
