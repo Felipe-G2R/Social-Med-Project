@@ -177,3 +177,54 @@ img[src^="data:image/svg+xml"][data-lazy-srcset] { visibility: hidden; }
   100% { background-position: 100% 0; }
 }
 
+
+/* =============================================================================
+   Rodapé institucional — barra preta full-width com copyright + CNPJ.
+   Renderizado por src/components/SiteFooter.tsx (fora do HTML gerado pelo
+   scraper, que é sobrescrito a cada build).
+   ============================================================================= */
+
+.ssm-footer {
+  width: 100%;
+  background-color: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 22px 20px;
+  font-family: "Sora", "Montserrat", Sans-serif;
+}
+
+.ssm-footer__inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 32px;
+  flex-wrap: wrap;
+}
+
+.ssm-footer__copy,
+.ssm-footer__cnpj {
+  color: #e6e6e6;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 767px) {
+  .ssm-footer {
+    padding: 20px 20px 24px;
+  }
+
+  .ssm-footer__inner {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .ssm-footer__copy,
+  .ssm-footer__cnpj {
+    font-size: 13px;
+  }
+}
